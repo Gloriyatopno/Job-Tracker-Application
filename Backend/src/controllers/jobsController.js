@@ -93,7 +93,7 @@ const updateJob = async (req, res) => {
     const { id } = req.params;
     const { company, role, status, applied_date, notes } = req.body;
 
-    // Check if the job exists
+    
     const existingJob = await pool.query(
       "SELECT * FROM jobs WHERE id = $1",
       [id]
@@ -146,9 +146,44 @@ const updateJob = async (req, res) => {
   }
 };
 
+const deleteJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    
+    const existingJob = await pool.query(
+      "SELECT * FROM jobs WHERE id = $1",
+      [id]
+    );
+
+    if (existingJob.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "Job not found",
+      });
+    }
+
+    // Delete the job
+    await pool.query(
+      "DELETE FROM jobs WHERE id = $1",
+      [id]
+    );
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error("Delete Job Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
-  createJob,
-  getAllJobs,
-  getJobById,
-  updateJob,
+    createJob,
+    getAllJobs,
+    getJobById,
+    updateJob,
+    deleteJob,
 };

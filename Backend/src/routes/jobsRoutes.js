@@ -7,10 +7,11 @@ const {
 } = require("../validators/jobsValidator");
 
 const {
-  createJob,
-  getAllJobs,
-  getJobById,
-  updateJob,
+    createJob,
+    getAllJobs,
+    getJobById,
+    updateJob,
+    deleteJob,
 } = require("../controllers/jobsController");
 
 router.get("/", getAllJobs);
@@ -20,5 +21,6 @@ router.post(
     validateCreateJob, 
     createJob);
 router.patch("/:id", validateUpdateJob, updateJob);
+router.delete("/:id", deleteJob);
 
 module.exports = router;
