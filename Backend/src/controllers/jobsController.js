@@ -29,6 +29,33 @@ const createJob = async (req, res) => {
   }
 };
 
+
+const getAllJobs = async (req, res) => {
+  try {
+    const query = `
+      SELECT *
+      FROM jobs
+      ORDER BY created_at DESC;
+    `;
+
+    const result = await pool.query(query);
+
+    return res.status(200).json({
+      success: true,
+      count: result.rows.length,
+      data: result.rows,
+    });
+  } catch (error) {
+    console.error("Get Jobs Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createJob,
+  getAllJobs,
 };
