@@ -5,9 +5,11 @@ const validateCreateJob = require("../validators/jobsValidator");
 const {
   createJob,
   getAllJobs,
+  getJobById,
 } = require("../controllers/jobsController");
 
 router.get("/", getAllJobs);
+router.get("/:id", getJobById);
 router.post(
     "/", 
     validateCreateJob, 
