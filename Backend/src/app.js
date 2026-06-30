@@ -1,11 +1,11 @@
 const express = require("express");
-
+const jobsRoutes = require("./routes/jobsRoutes");
 const app = express();
 
-// Middleware to parse JSON request bodies
-app.use(express.json());
 
-// Test route
+app.use(express.json());
+app.use("/jobs", jobsRoutes);
+
 app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
