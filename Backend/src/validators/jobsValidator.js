@@ -35,4 +35,29 @@ const validateCreateJob = [
   },
 ];
 
-module.exports = validateCreateJob;
+const validateUpdateJob = [
+  body("status")
+    .optional()
+    .isIn(["applied", "interviewing", "offered", "rejected"])
+    .withMessage(
+      "Invalid status. Must be one of: applied, interviewing, offered, rejected"
+    ),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        error: errors.array()[0].msg,
+      });
+    }
+
+    next();
+  },
+];
+
+module.exports = {
+  validateCreateJob,
+  validateUpdateJob,
+};

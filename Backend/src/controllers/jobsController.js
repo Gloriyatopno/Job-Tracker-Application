@@ -88,8 +88,67 @@ const getJobById = async (req, res) => {
   }
 };
 
+const updateJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { company, role, status, applied_date, notes } = req.body;
+
+    // Check if the job exists
+    const existingJob = await pool.query(
+      "SELECT * FROM jobs WHERE id = $1",
+      [id]
+    );
+
+    if (existingJob.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "Job not found",
+      });
+    }
+
+    const currentJob = existingJob.rows[0];
+
+    const query = `
+      UPDATE jobs
+      SET
+        company = $1,
+        role = $2,
+        status = $3,
+        applied_date = $4,
+        notes = $5
+      WHERE id = $6
+      RETURNING *;
+    `;
+
+    const values = [
+      company ?? currentJob.company,
+      role ?? currentJob.role,
+      status ?? currentJob.status,
+      applied_date ?? currentJob.applied_date,
+      notes ?? currentJob.notes,
+      id,
+    ];
+
+    const result = await pool.query(query, values);
+
+    return res.status(200).json({
+      success: true,
+      message: "Job updated successfully",
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Update Job Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createJob,
   getAllJobs,
   getJobById,
+  updateJob,
 };
