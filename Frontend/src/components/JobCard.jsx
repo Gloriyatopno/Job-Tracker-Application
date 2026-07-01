@@ -1,4 +1,4 @@
-function JobCard({ job, onDelete }) {
+function JobCard({ job, onDelete, onStatusChange }) {
   return (
     <div className="job-card">
       <h2>{job.company}</h2>
@@ -8,8 +8,18 @@ function JobCard({ job, onDelete }) {
       </p>
 
       <p>
-        <strong>Status:</strong> {job.status}
-      </p>
+  <strong>Status:</strong>
+</p>
+
+<select
+  value={job.status}
+  onChange={(e) => onStatusChange(job.id, e.target.value)}
+>
+  <option value="applied">Applied</option>
+  <option value="interviewing">Interviewing</option>
+  <option value="offered">Offered</option>
+  <option value="rejected">Rejected</option>
+  </select>
 
       <p>
         <strong>Applied Date:</strong> {job.applied_date}

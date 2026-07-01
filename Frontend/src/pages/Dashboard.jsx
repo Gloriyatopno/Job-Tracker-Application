@@ -24,6 +24,18 @@ function Dashboard() {
   }
 };
 
+const updateJobStatus = async (id, status) => {
+  try {
+    await jobsApi.patch(`/jobs/${id}`, {
+      status,
+    });
+
+    fetchJobs();
+  } catch (error) {
+    console.error("Error updating job:", error);
+  }
+};
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -36,7 +48,11 @@ function Dashboard() {
 
       <p>Total Jobs: {jobs.length}</p>
 
-      <JobList jobs={jobs} onDelete={deleteJob} />
+      <JobList
+  jobs={jobs}
+  onDelete={deleteJob}
+  onStatusChange={updateJobStatus}
+   />
     </div>
   );
 }
