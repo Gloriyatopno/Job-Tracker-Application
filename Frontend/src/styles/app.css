@@ -83,3 +83,17 @@ p {
 .job-form button:hover {
   background: #1d4ed8;
 }
+
+.job-card button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.job-card button:hover {
+  background: #b91c1c;
+}

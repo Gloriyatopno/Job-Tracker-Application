@@ -15,6 +15,15 @@ function Dashboard() {
     }
   };
 
+  const deleteJob = async (id) => {
+  try {
+    await jobsApi.delete(`/jobs/${id}`);
+    fetchJobs();
+  } catch (error) {
+    console.error("Error deleting job:", error);
+  }
+};
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -27,7 +36,7 @@ function Dashboard() {
 
       <p>Total Jobs: {jobs.length}</p>
 
-      <JobList jobs={jobs} />
+      <JobList jobs={jobs} onDelete={deleteJob} />
     </div>
   );
 }

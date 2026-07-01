@@ -1,6 +1,7 @@
 import JobCard from "./JobCard";
 
-function JobList({ jobs }) {
+function JobList({ jobs, onDelete }) {
+
   if (jobs.length === 0) {
     return <p>No job applications found.</p>;
   }
@@ -8,7 +9,11 @@ function JobList({ jobs }) {
   return (
     <div>
       {jobs.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <JobCard
+  key={job.id}
+  job={job}
+  onDelete={onDelete}
+   />
       ))}
     </div>
   );
