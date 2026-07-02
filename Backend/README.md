@@ -1,6 +1,6 @@
 # Job Tracker Backend API
 
-A RESTful API for managing job applications, built with Node.js, Express, and PostgreSQL.
+A RESTful backend API for managing job applications using Node.js, Express.js, and PostgreSQL.
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ npm run dev
 - Get a job application by ID
 - Update a job application
 - Delete a job application
-- Input validation for job status
+- Server-side input validation using express-validator
 - PostgreSQL database integration
 
 ## Tech Stack
@@ -29,6 +29,11 @@ npm run dev
 - express-validator
 - dotenv
 - nodemon
+
+## Architecture
+
+This backend follows the MVC (Model-View-Controller) architecture to keep the code modular, scalable, and easy to maintain.
+
 
 ## Project Structure
 
@@ -53,7 +58,7 @@ Backend/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/GloriyaTopno/Job_Application_Tracker.git
 cd Backend
 ```
 
@@ -126,6 +131,14 @@ http://localhost:3000
   "notes": "Applied through LinkedIn"
 }
 ```
+
+## Future Improvements
+
+- User Authentication
+- Pagination
+- File Uploads
+- Dashboard Analytics
+- JWT Authorization
 
 ## Author
 
